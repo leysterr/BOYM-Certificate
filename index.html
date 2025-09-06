@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Certificate Registration</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #f7f7f7;
+      padding: 20px;
+    }
+    .form-container {
+      background: #fff;
+      padding: 20px;
+      margin: 50px auto;
+      border-radius: 10px;
+      box-shadow: 0px 2px 6px rgba(0,0,0,0.2);
+      display: inline-block;
+    }
+    input {
+      padding: 8px;
+      margin: 5px;
+      width: 250px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 15px;
+      background: #d32f2f;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #9a0007;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Fill up the form to generate your Certificate</h2>
+  <div class="form-container">
+    <form id="userForm">
+      <input type="text" id="name" placeholder="Full Name" required><br>
+      <input type="number" id="age" placeholder="Age" required><br>
+      <input type="text" id="address" placeholder="Address" required><br>
+      <button type="submit">Generate Certificate</button>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById("userForm");
+
+    form.addEventListener("submit", function(e){
+      e.preventDefault();
+
+      let name = document.getElementById("name").value;
+      let age = document.getElementById("age").value;
+      let address = document.getElementById("address").value;
+
+      // Retrieve saved participants or create new
+      let submissions = JSON.parse(localStorage.getItem("submissions")) || [];
+      submissions.push({name, age, address});
+
+      // Save back to localStorage
+      localStorage.setItem("submissions", JSON.stringify(submissions));
+
+      // Also save last entry for preview
+      localStorage.setItem("lastSubmission", JSON.stringify({name, age, address}));
+
+      // Redirect to certificate page
+      window.location.href = "BOYM Certificate.html";
+    });
+  </script>
+
+</body>
+</html>
